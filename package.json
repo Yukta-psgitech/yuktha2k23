@@ -1,0 +1,35 @@
+{
+  "name": "yuktha2k23",
+  "version": "1.0.0",
+  "description": "This the Yuktha 2K23 official website",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dharaneesh227/yuktha2k23.git"
+  },
+  "author": "The Dept. of CSE App team",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dharaneesh227/yuktha2k23/issues"
+  },
+  "homepage": "https://github.com/dharaneesh227/yuktha2k23#readme",
+  "dependencies": {
+    "audit": "^0.0.6",
+    "body-parser": "^1.20.1",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "mongoose": "^6.9.0",
+    "mongoose-findorcreate": "^3.0.0",
+    "passport": "^0.6.0",
+    "passport-google-oauth20": "^2.0.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^7.1.2",
+    "serve-favicon": "^2.5.0"
+  }
+}
