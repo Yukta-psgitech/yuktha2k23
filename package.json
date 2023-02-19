@@ -4,8 +4,7 @@
   "description": "This the Yuktha 2K23 official website",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +25,7 @@
     "express-session": "^1.17.3",
     "mongoose": "^6.9.0",
     "mongoose-findorcreate": "^3.0.0",
+    "nodemon": "^2.0.20",
     "passport": "^0.6.0",
     "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",
