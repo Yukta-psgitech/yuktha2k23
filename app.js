@@ -105,7 +105,7 @@ passport.use(new GoogleStrategy({
 
 //---------------routes start-------------------------------
 router.get('/', (req, res) => {
-    res.render("./index.ejs");
+    res.render("index");
 });
 
 app.get("/login", function(req, res){
@@ -164,7 +164,7 @@ app.post("/login", function(req, res){
       console.log(err);
     } else {
       passport.authenticate("local")(req, res, function(){
-        res.redirect("/acccount");
+        res.redirect("/dashboard");
       });
     }
   });
