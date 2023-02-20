@@ -9,9 +9,7 @@ const mongoose = require("mongoose");
 const session = require('express-session');
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
-// const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-// const findOrCreate = require('mongoose-findorcreate');
 const flash = require('connect-flash');
 
 const port = process.env.PORT || 3000;
@@ -25,7 +23,9 @@ const College = require("./models/college");
 //EJS
 const app = express();
 app.set('view engine', 'ejs');
-app.use(express.static("static"));
+
+app.use(express.static("public"));
+
 app.use(bodyParser.urlencoded({
   extended: true
 }));
@@ -33,7 +33,7 @@ app.use(bodyParser.urlencoded({
 //FOR DATABASE CONNECTION
 //DB config
 mongoose.connect("mongodb://127.0.0.1:27017/yuktha2k23", {useUnifiedTopology: true, useNewUrlParser: true});//useCreateIndex: true, 
-mongoose.set("strictQuery", false);
+mongoose.set('strictQuery', true);
 // const db = mongoose.connection;
 
 //check connection
@@ -47,7 +47,7 @@ mongoose.set("strictQuery", false);
 // });
 
 // Serving favicon
-app.use(favicon(__dirname + '/static/images/favicon.png'));
+app.use(favicon(__dirname + '/public/images/favicon.png'));
 
 //Express Session middleware
 app.use(session(
@@ -110,7 +110,7 @@ passport.use(new GoogleStrategy({
 
 //---------------routes start-------------------------------
 app.get('/', (req, res) => {
-    res.render("homepage");
+    res.render("index");
 });
 
 app.get("/login", function(req, res){
