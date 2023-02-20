@@ -1,5 +1,6 @@
 var mongoose = require("mongoose");
 var passportLocalMongoose = require("passport-local-mongoose");
+const findOrCreate = require('mongoose-findorcreate');
 var AutoIncrement = require("mongoose-sequence")(mongoose)
 
 var UserSchema = new mongoose.Schema({
@@ -30,6 +31,7 @@ var UserSchema = new mongoose.Schema({
 });
 
 UserSchema.plugin(passportLocalMongoose);
+UserSchema.plugin(findOrCreate);
 UserSchema.plugin(AutoIncrement, { inc_field: "yukid" })
 
-module.exports = mongoose.model("User", UserSchema);
+module.exports = mongoose.model("users", UserSchema);

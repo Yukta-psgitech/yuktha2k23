@@ -1,6 +1,6 @@
 //jshint esversion:6
 //requirements
-require('config/.env').config();
+const dotenv = require('dotenv').config({path : "config/.env"});
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
@@ -8,16 +8,19 @@ var favicon = require('serve-favicon');
 const mongoose = require("mongoose");
 const session = require('express-session');
 const passport = require("passport");
-const passportLocalMongoose = require("passport-local-mongoose");
+const LocalStrategy = require("passport-local");
+// const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const findOrCreate = require('mongoose-findorcreate');
+// const findOrCreate = require('mongoose-findorcreate');
+const flash = require('connect-flash');
+
 const port = process.env.PORT || 3000;
 
 //Requiring models
-const Event = require("../models/event");
-const User = require("../models/User");
-const Workshop = require("../models/workshop");
-const College = require("../models/college");
+const Event = require("./models/event");
+const User = require("./models/users");
+const Workshop = require("./models/workshop");
+const College = require("./models/college");
 
 //EJS
 const app = express();
@@ -29,17 +32,19 @@ app.use(bodyParser.urlencoded({
 
 //FOR DATABASE CONNECTION
 //DB config
-mongoose.connect("mongodb://localhost:27017/yuktha2k23", {useCreateIndex: true, useUnifiedTopology: true, useNewUrlParser: true});
+mongoose.connect("mongodb://127.0.0.1:27017/yuktha2k23", {useUnifiedTopology: true, useNewUrlParser: true});//useCreateIndex: true, 
+mongoose.set("strictQuery", false);
+// const db = mongoose.connection;
 
 //check connection
-db.once('open', function() {
-    console.log('Connected to MongoDB')
-});
+// db.once('open', function() {
+//     console.log('Connected to MongoDB')
+// });
 
 //check for db errors
-db.on('error', function(err) {
-    console.log(err);
-});
+// db.on('error', function(err) {
+//     console.log(err);
+// });
 
 // Serving favicon
 app.use(favicon(__dirname + '/static/images/favicon.png'));
@@ -62,9 +67,9 @@ app.use(flash());
 // app.use('/',require('./routes/index'));
 // app.use('/users',require('./routes/users'));
 
-app.use((req, res, next) => {
-    res.status(404).render("404");
-});
+// app.use((req, res, next) => {
+//     res.status(404).render("404");
+// });
 
 
 // const userSchema = new mongoose.Schema ({
@@ -72,10 +77,10 @@ app.use((req, res, next) => {
 //     googleId: String
 // });
 
-userSchema.plugin(passportLocalMongoose);
-userSchema.plugin(findOrCreate);
+// userSchema.plugin(passportLocalMongoose);
+// userSchema.plugin(findOrCreate);
 
-const User = new mongoose.model("User",userSchema);
+// const User = new mongoose.model("User",userSchema);
 
 passport.use(User.createStrategy());
 
@@ -104,8 +109,8 @@ passport.use(new GoogleStrategy({
 
 
 //---------------routes start-------------------------------
-router.get('/', (req, res) => {
-    res.render("index");
+app.get('/', (req, res) => {
+    res.render("homepage");
 });
 
 app.get("/login", function(req, res){
