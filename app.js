@@ -32,9 +32,8 @@ app.use(bodyParser.urlencoded({
 
 //FOR DATABASE CONNECTION
 //DB config
-mongoose.connect("mongodb://127.0.0.1:27017/yuktha2k23", {useUnifiedTopology: true, useNewUrlParser: true});//useCreateIndex: true, 
-mongoose.set('strictQuery', true);
-// const db = mongoose.connection;
+mongoose.set("strictQuery", false);
+mongoose.connect("mongodb://127.0.0.1:27017/yuktha2k23", {useUnifiedTopology: true, useNewUrlParser: true});
 
 //check connection
 // db.once('open', function() {
@@ -94,18 +93,18 @@ passport.deserializeUser(function(id,done){
     });
 });
 
-passport.use(new GoogleStrategy({
-        clientID: process.env.client_ID,
-        clientSecret: process.env.client_Secret,
-        callbackURL:"http://localhost:3000/google/login_successful",
-        userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
-    },
-    function(accessToken,refreshToken,profile,cb) {
-        User.findOrCreate({googleId:profile.id},function(err,user){
-            return cb(err,user);
-        });
-    }
-));
+// passport.use(new GoogleStrategy({
+//         clientID: process.env.client_ID,
+//         clientSecret: process.env.client_Secret,
+//         callbackURL:"http://localhost:3000/google/login_successful",
+//         userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
+//     },
+//     function(accessToken,refreshToken,profile,cb) {
+//         User.findOrCreate({googleId:profile.id},function(err,user){
+//             return cb(err,user);
+//         });
+//     }
+// ));
 
 
 //---------------routes start-------------------------------
@@ -114,13 +113,15 @@ app.get('/', (req, res) => {
 });
 
 app.get("/login", function(req, res){
-  res.render("login");
+  res.render("login_register");
 });
 
 app.get("/register", function(req, res){
-  res.render("register");
+  res.render("login_register");
 });
 
+
+//---------==========edit
 app.get("/acccount", function(req, res){
   User.find({"secret": {$ne: null}}, function(err, foundUsers){
     if (err){
@@ -133,16 +134,22 @@ app.get("/acccount", function(req, res){
   });
 });
 
-app.get("/auth/google/login_successful",
-  passport.authenticate('google', { failureRedirect: "/login" }),
-  function(req, res) {
-// Successful authentication, redirect to acccount.
-    res.redirect("/dashboard");
-  });
+// app.get("/auth/google/login_successful",
+//   passport.authenticate('google', { failureRedirect: "/login" }),
+//   function(req, res) {
+// // Successful authentication, redirect to acccount.
+//     res.redirect("/dashboard");
+//   });
 
 
 
 app.post("/register", function(req, res){
+  // const user = new User({
+  //   name:req.body.,
+  //   username:,
+    
+  // })
+
 
   User.register({username: req.body.username}, req.body.password, function(err, user){
     if (err) {
@@ -156,6 +163,32 @@ app.post("/register", function(req, res){
   });
 
 });
+
+// const user = new User({
+//   name: req.body.name,
+//   department: req.body.d_name,
+//   accountType: "paper",
+//   collegeName: "PSG Institute of Technology and Applied Research",
+//   username: req.body.username.replace(/ /g, "").toLowerCase(),
+// });
+// User.register(user, req.body.password, (err, user) => {
+//   if (err) {
+//       req.flash("error_msg", err.message);
+//       res.redirect('signin');
+//       return;
+//   } else {
+//       passport.authenticate("local")(req, res, () => {
+//           User.findOne({ 'username': req.user.username }, (err, users) => {
+//               if (err) {
+//                   req.flash("error", err.message);
+//                   res.redirect('signin');
+//                   return;
+//               }
+//               console.log("PPP")
+//           });
+//       });
+//   }
+// });
 
 app.post("/login", function(req, res){
 

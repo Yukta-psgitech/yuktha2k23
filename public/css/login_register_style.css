@@ -17,7 +17,7 @@ background-image: linear-gradient(180deg, #A9C9FF 0%, #FFBBEC 100%);
 	align-items: center;
 	flex-direction: column;
 	font-family: 'Montserrat', sans-serif;
-	 height: 100vh;
+	height: 100vh;
 	margin:-10px 0 50px; 
 }
 
@@ -274,16 +274,141 @@ footer a {
 	margin-bottom: 20px;
 }
 
-@media screen and (max-device-width: 480px) and (orientation: portrait) {
-  
-	.css-grid {
-	  display: grid;
-	  grid-gap: 1rem;
-	  /* Mobile */
-	  grid-template-areas: 'gridItem1' 
-						   'gridItem3' 
-						   'gridItem2';
+.selectgender{
+  background-color: #eee;
+  padding-left: 3.5%;
+  margin: 0;
+  width: 100%;
+  height: 40px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2vh;
+  cursor: inherit;
+  line-height: inherit;
+  border: none;
+}
+
+.selectcollege{
+	background-color: #eee;
+	padding-left: 3.5%;
+	margin: 0;
+	width: 100%;
+	height: 40px;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 2vh;
+	cursor: inherit;
+	line-height: inherit;
+	border: none;
   }
+
+  @media screen and (max-device-width: 480px) and (orientation: portrait) {
 	
-  }
+	body{
+		width: auto;
+		height: 100vh;
+	}
+	.container{
+		top: -10vh;
+		width: 360px;
+		min-height: 500px !important;
+		padding: 0% !important;
+	}
+
+	.container .form-container{
+		width: 180px;
+		height: 500px;
+	}
+
+	.container .form-container .sign-in-container{
+		width: 180px;
+		height: 500px;
+	}
+
+	.container .form-container .sign-up-container{
+		width: 180px;
+		height: 500px;
+	}
+
+	.container .overlay-container{
+		width: 180px;
+		height: 500px;
+	}
+
+	.itech-logo{
+		width: auto;
+		height: 45px;
+	}
+
+	h1{
+		font-size: 20px;
+	}
+	h2{
+		font-size: 15px;
+	}
+	input{
+		height: 30px;
+		padding-top: 3px !important; 
+		padding-bottom: 3px !important;
+		padding-left: 11px;
+	}
+
+	::placeholder{
+		font-size: 12px;
+		/* margin-left: -10px; */
+	}
+
+	button{
+		height: 6%;
+		width: 85%;
+		padding: 0%;
+		font-size: 11px;
+		font-weight: 400;
+		text-align: center;
+	}
+	
+	.Yuktha-logo{
+		width: auto;
+		height: 8vh;
+	}
+
+	p{
+		font-size:13px;
+		padding: 0%;
+	}
+
+	.selectgender{
+		background-color: #eee;
+		padding-left: 4%;
+		margin: 0;
+		width: 100%;
+		height: 40px;
+		font-family: 'Montserrat', sans-serif;
+		font-size: 1.2vh;
+		cursor: inherit;
+		line-height: inherit;
+		border: none;
+	  }
+	  
+	  .selectcollege{
+		  background-color: #eee;
+		  padding-left: 4%;
+		  margin: 0;
+		  width: 100%;
+		  height: 40px;
+		  font-family: 'Montserrat', sans-serif;
+		  font-size: 2vh;
+		  cursor: inherit;
+		  line-height: inherit;
+		  border: none;
+		}
+		form {
+			background-color: #FFFFFF;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+			padding: 0 20px !important;
+			height: 100%;
+			text-align: center;
+		}
+}
   
