@@ -13,12 +13,3 @@ signInButton.addEventListener('click', () => {
 	container.classList.remove("right-panel-active");
 });
   }
-
-// window.onresize=function(){
-// const overall = document.getElementById('overall');
-
-//   if (window.screen.width <= 480)
-//   {
-// 	  overall.classList.remove("container");
-//   }
-// }

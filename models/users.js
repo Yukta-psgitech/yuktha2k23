@@ -5,13 +5,13 @@ var AutoIncrement = require("mongoose-sequence")(mongoose)
 
 var UserSchema = new mongoose.Schema({
     yukid: Number,
-    username: String,
+    email: String,
     accountType: { type: String, default: "user" },
     password: String,
-    googleId: String,
+    // googleId: String,
     name: String,
     gender: { type: String, default: "others" },
-    contact: String,
+    number: String,
     year: String,
     collegeName: String,
     department: String,

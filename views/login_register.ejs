@@ -20,20 +20,20 @@
 	<!-- sign up container -->
 	<div class="form-container sign-up-container grid-item-1">
 
-		<form id="sign-up-containers" action="/login" method="post">
+		<form id="sign-up-containers" action="/register" method="post">
 			<h1>Register</h1>
-			<input type="text" name="" placeholder="Name" required/>
+			<input type="text" name="name" placeholder="Name" required/>
 
-			<select class="selectgender" name="gender">
-				<option class="optiongender" value="" disabled selected>Gender</option>
+			<input type="text" name="gender" placeholder="Gender" list="genderlist" required/>
+			<datalist id="genderlist">
 				<option class="optiongender" value="Male" id="Male">Male</option>
 				<option class="optiongender" value="Female" id="Female">Female</option>
 				<option class="optiongender" value="Other" id="Other">Other</option>
-			</select> 
+			</datalist> 
 
-         	<input type="text" name="number" placeholder="Number"/>
+         	<input type="text" name="number" placeholder="Number" required/>
 
-			<input type="text" name="college" list="collegelist" placeholder="College"/>
+			<input type="text" name="college" list="collegelist" placeholder="College"required/>
  			<datalist id="collegelist">
 				<option  value='' disabled selected>Select College</option>
 				<option>A. D. Patel Institute of Technology</option>
@@ -1457,19 +1457,19 @@
 				<option>Vidyavardhaka College of Engineering</option>
 			</datalist> 
 
-			 <select class="selectgender" name="year">
-				<option class="optiongender" value="" disabled selected>Year</option>
-				<option class="optiongender" value="I" id="Male"><I>I</option>
-				<option class="optiongender" value="II" id="Female">II</option>
-				<option class="optiongender" value="III" id="Other">III</option>
-				<option class="optiongender" value="IV" id="Other">IV</option>
-				<option class="optiongender" value="V" id="Other">V</option>
-				<option class="optiongender" value="PG-1" id="Other">PG-1</option>
-				<option class="optiongender" value="PG-2" id="Other">PG-2</option>
-			</select>
+			<input type="text" name="year" placeholder="Year" list="yearlist" required/>
+			 <datalist id="yearlist">
+				<option value="I" id="Male"><I>I</option>
+				<option value="II" id="Female">II</option>
+				<option value="III" id="Other">III</option>
+				<option value="IV" id="Other">IV</option>
+				<option value="V" id="Other">V</option>
+				<option value="PG-1" id="Other">PG-1</option>
+				<option value="PG-2" id="Other">PG-2</option>
+			</datalist>
 
-			<select style="Margin-top: 4%;" class="selectgender" name="department">
-				<option value='' disabled selected>Select Department</option>
+			<input type="text" name="department" list="departmentlist" placeholder="Department"required/>
+			<datalist id="departmentlist">
 				<option id="Aeronautical Engineering" value="Aeronautical Engineering">Aeronautical Engineering</option>
 				<option id="Agriculture Engineering" value="Agriculture Engineering">Agriculture Engineering</option>
 				<option id="Architecture" value="Architecture">Architecture</option>
@@ -1499,24 +1499,26 @@
 				<option id="Production Engineering" value="Production Engineering">Production Engineering</option>
 				<option id="Textile Engineering" value="Textile Engineering">Textile Engineering</option>
 				<option >Others</option>
-			  </select>
+			</datalist>
 
-			<input type="email" name="" placeholder="Email" />
-			<input type="password" name="" placeholder="Password" />
-			<button style="margin-top: 12px;">Sign Up</button>
+			<input type="email" name="email" placeholder="Email" required />
+			<input type="password" name="" placeholder="password"required style="margin-bottom: 20px;"/>
+			<button style="height:13% ;">Sign Up</button>
 		</form>
 	</div>
 
 
 	<!-- sign in container -->
-	<div class="form-container sign-in-container grid-item-2">
-		<form action="#" method="post">
+	<div  class="form-container sign-in-container grid-item-2">
+		<form style="height: 90% !important;" action="/login" method="post">
 			<h1>Login</h1>
 			<input type="email" placeholder="Email" />
 			<input type="password" placeholder="Password" />
-         <button style="margin-top: 20px;">Login</button>
+         <button style="margin-top: 12px;">Login</button>
 		</form>
 	</div>
+
+
 	<div class="overlay-container">
 		<div class="overlay">
 			<div class="overlay-panel overlay-left">

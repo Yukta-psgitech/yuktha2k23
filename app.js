@@ -9,9 +9,6 @@ const mongoose = require("mongoose");
 const session = require('express-session');
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const flash = require('connect-flash');
-
 const port = process.env.PORT || 3000;
 
 //Requiring models
@@ -35,15 +32,6 @@ app.use(bodyParser.urlencoded({
 mongoose.set("strictQuery", false);
 mongoose.connect("mongodb://127.0.0.1:27017/yuktha2k23", {useUnifiedTopology: true, useNewUrlParser: true});
 
-//check connection
-// db.once('open', function() {
-//     console.log('Connected to MongoDB')
-// });
-
-//check for db errors
-// db.on('error', function(err) {
-//     console.log(err);
-// });
 
 // Serving favicon
 app.use(favicon(__dirname + '/public/images/favicon.png'));
@@ -59,8 +47,6 @@ app.use(session(
 app.use(passport.initialize());
 app.use(passport.session());
 
-//connect flash middleware
-app.use(flash());
 
 //routes for later
 // app.use('/',require('./routes/index'));
@@ -70,28 +56,13 @@ app.use(flash());
 //     res.status(404).render("404");
 // });
 
-
-// const userSchema = new mongoose.Schema ({
-//     email: String,
-//     googleId: String
-// });
-
-// userSchema.plugin(passportLocalMongoose);
-// userSchema.plugin(findOrCreate);
-
-// const User = new mongoose.model("User",userSchema);
-
-passport.use(User.createStrategy());
-
+// passport.use(User.createStrategy());
+passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(function(user,done){
     done(null,user.id);
 });
 
-passport.deserializeUser(function(id,done){
-    user.findById(id,function(err,user){
-        done(err,user);
-    });
-});
+
 
 // passport.use(new GoogleStrategy({
 //         clientID: process.env.client_ID,
@@ -109,7 +80,7 @@ passport.deserializeUser(function(id,done){
 
 //---------------routes start-------------------------------
 app.get('/', (req, res) => {
-    res.render("index");
+    res.render("homepage");
 });
 
 app.get("/login", function(req, res){
@@ -144,25 +115,33 @@ app.get("/acccount", function(req, res){
 
 
 app.post("/register", function(req, res){
-  // const user = new User({
-  //   name:req.body.,
-  //   username:,
-    
-  // })
-
-
-  User.register({username: req.body.username}, req.body.password, function(err, user){
-    if (err) {
-      console.log(err);
-      res.redirect("/register");
-    } else {
-      passport.authenticate("local")(req, res, function(){
-        res.redirect("/acccountt");
-      });
-    }
-  });
-
-});
+  var user = new User({
+    name:req.body.name,
+    gender:req.body.gender,
+    number:req.body.number,
+    collegeName:req.body.college,
+    year:req.body.year,
+    department:req.body.department,
+    email:req.body.email
+  })
+    User.register(user,req.body.password,function (err,user) {
+      if(err){
+        // req.flash("error_msg", err.message);
+        return res.render('login_register');
+      }
+      else{
+        passport.authenticate("local")(req,res,function () {
+          User.findOne({'email':req.user.email},(err,user) => {
+            if(err){
+              // req.flash("error",err.message);
+              return res.redirect('login');
+            }
+          })
+        })
+      }
+    })
+}
+);
 
 // const user = new User({
 //   name: req.body.name,
@@ -193,7 +172,7 @@ app.post("/register", function(req, res){
 app.post("/login", function(req, res){
 
   const user = new User({
-    username: req.body.username,
+    email: req.body.username,
     password: req.body.password
   });
 
@@ -214,38 +193,12 @@ app.get("/logout", function(req, res){
   res.redirect("/");
 });
 
-// -----------------------------------reference-----------------------------------
 
-// app.get("/submit", function(req, res){
-//   if (req.isAuthenticated()){
-//     res.render("submit");
-//   } else {
-//     res.redirect("/login");
-//   }
-// });
-
-// app.post("/submit", function(req, res){
-//   const submittedSecret = req.body.secret;
-
-// Once the user is authenticated and their session gets saved, their user details are saved to req.user.
-// console.log(req.user.id);
-
-//   User.findById(req.user.id, function(err, foundUser){
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       if (foundUser) {
-//         foundUser.secret = submittedSecret;
-//         foundUser.save(function(){
-//           res.redirect("/acccount");
-//         });
-//       }
-//     }
-//   });
-// });
-
-
-
+passport.deserializeUser(function(id,done){
+    user.findById(id,function(err,user){
+        done(err,user);
+    });
+});
 
 app.listen(port, function() {
     console.log("Server started on port "+port);
